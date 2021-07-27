@@ -14,6 +14,7 @@ class Produto {
     private $vlrVenda;
     private $qtdEstoque;
     
+    
     function getIdProduto() {
         return $this->idProduto;
     }
