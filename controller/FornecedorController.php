@@ -52,9 +52,9 @@ class FornecedorController {
     }
     
     //método para carregar a lista de fornecedores que vem da DAO
-    public function listarFornecedores(){
+    public function listarFornecedor(){
         $daoFornecedor = new DaoFornecedor();
-        return $daoFornecedor->listarFornecedorsDAO();
+        return $daoFornecedor->listarFornecedorDAO();
     }
     
     //método para excluir fornecedor

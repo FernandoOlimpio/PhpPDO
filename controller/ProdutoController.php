@@ -11,12 +11,13 @@ include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';
 
 class ProdutoController {
     public function inserirProduto($nomeProduto, $vlrCompra, 
-            $vlrVenda, $qtdEstoque){
+            $vlrVenda, $qtdEstoque, $fkFornecedor){
         $produto = new Produto();
         $produto->setNomeProduto($nomeProduto);
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
+        $produto->getFkFornecedor($fkFornecedor);
         
         $daoProduto = new DaoProduto();
         return $daoProduto->inserir($produto);

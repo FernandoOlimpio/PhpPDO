@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 class Produto {
     
@@ -13,8 +8,21 @@ class Produto {
     private $vlrCompra;
     private $vlrVenda;
     private $qtdEstoque;
-    
-    
+    private $fkFornecedor;
+    /*
+    public function fornecedorDados(){
+        return $fornecedor = new Fornecedor();
+    }
+    */
+   function getFkFornecedor() {
+       return $this->fkFornecedor;
+   }
+
+   function setFkFornecedor($fkFornecedor) {
+       $this->fkFornecedor = $fkFornecedor;
+   }
+
+       
     function getIdProduto() {
         return $this->idProduto;
     }

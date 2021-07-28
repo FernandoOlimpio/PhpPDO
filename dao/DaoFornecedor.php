@@ -79,12 +79,13 @@ class DaoFornecedor{
                         . "bairro = ?, "
                         . "cidade = ?, "
                         . "uf = ?,"
-                        .  "cep = ?, "
-                        .  "representante = ?,"
-                        .  "email = ?,"
-                        .  "telfixo = ?,"
-                        .  "telcel = ?,"
-                        . "idforncedor = ?");
+                        . "cep = ?, "
+                        . "representante = ?,"
+                        . "email = ?,"
+                        . "telfixo = ?,"
+                        . "telcel = ?,"
+                        . "where idfornecedor = ?");
+                
                 $stmt->bindParam(1, $nomeFornecedor);
                 $stmt->bindParam(2, $logradouro);
                 $stmt->bindParam(3, $numero);
@@ -124,7 +125,7 @@ class DaoFornecedor{
                 if($rs->execute()){
                     if($rs->rowCount() > 0){
                         while($linha = $rs->fetch(PDO::FETCH_OBJ)){
-                            $fornecedor = new Forncecedor();
+                            $fornecedor = new Fornecedor();
                             $fornecedor->setIdFornecedor($linha->idfornecedor );
                             $fornecedor->setNomeFornecedor($linha->nomefornecedor );
                             $fornecedor->setLogradouro($linha->logradouro );
@@ -211,7 +212,7 @@ class DaoFornecedor{
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-			 URL='../PHPMatutino01/cadastroFornecedor.php'\">"; 
+			 URL='../CadastroFornecedor.php'\">"; 
         }
         return $fornecedor;
     }

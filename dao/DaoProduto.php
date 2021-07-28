@@ -21,13 +21,15 @@ class DaoProduto {
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
+            $fkFornecedor = $produto->getFkFornecedor();
             try {
                 $stmt = $conecta->prepare("insert into produto values "
-                        . "(null,?,?,?,?)");
+                        . "(null,?,?,?,?,?)");
                 $stmt->bindParam(1, $nomeProduto);
                 $stmt->bindParam(2, $vlrCompra);
                 $stmt->bindParam(3, $vlrVenda);
                 $stmt->bindParam(4, $qtdEstoque);
+                $stmt->bindParam(5, $fkFornecedor);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
@@ -85,7 +87,8 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         if($conecta){
             try {
-                $rs = $conecta->query("select * from produto");
+                $rs = $conecta->query("select * from produto inner join fornecedor"
+                        . "on produto.fkfornecedor = fornecedor.idfornecedor ");
                 $lista = array();
                 $a = 0;
                 if($rs->execute()){
