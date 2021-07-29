@@ -8,18 +8,18 @@ class Produto {
     private $vlrCompra;
     private $vlrVenda;
     private $qtdEstoque;
-    private $fkFornecedor;
+    private $fornecedor; //variavel que vai receber o objeto fornecedor.
     /*
     public function fornecedorDados(){
         return $fornecedor = new Fornecedor();
     }
     */
-   function getFkFornecedor() {
-       return $this->fkFornecedor;
+   function getFornecedor() {
+       return $this->fornecedor;
    }
 
-   function setFkFornecedor($fkFornecedor) {
-       $this->fkFornecedor = $fkFornecedor;
+   function setFornecedor($fornecedor) {
+       $this->fornecedor = $fornecedor;
    }
 
        

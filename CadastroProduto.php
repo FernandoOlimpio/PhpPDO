@@ -78,15 +78,15 @@ $btExcluir = FALSE;
                                 $vlrCompra = $_POST['vlrCompra'];
                                 $vlrVenda = $_POST['vlrVenda'];
                                 $qtdEstoque = $_POST['qtdEstoque'];
-                                $fkFornecedor = $POST['idFornecedor'];
+                                $fornecedor = $_POST['idFornecedor'];
 
                                 $pc = new ProdutoController();
                                 unset($_POST['cadastrarProduto']);
                                 $msg = $pc->inserirProduto($nomeProduto, $vlrCompra,
-                                        $vlrVenda, $qtdEstoque, $fkFornecedor);
+                                        $vlrVenda, $qtdEstoque, $fornecedor);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
-                                    URL='cadastroProduto.php'\">";
+                                    URL='CadastroProduto.php'\">";
                             }
                         }
                         
@@ -105,7 +105,7 @@ $btExcluir = FALSE;
                                         $vlrCompra, $vlrVenda, $qtdEstoque);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
-                                    URL='cadastroProduto.php'\">";
+                                    URL='CadastroProduto.php'\">";
                             }
                         }
                         
@@ -118,7 +118,7 @@ $btExcluir = FALSE;
                                 $msg = $pc->excluirProduto($id);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
-                                    URL='cadastroProduto.php'\">";
+                                    URL='CadastroProduto.php'\">";
                             }
                         }
                         
@@ -130,14 +130,14 @@ $btExcluir = FALSE;
                                 $msg = $pc->excluirProduto($id);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
-                                    URL='cadastroProduto.php'\">";
+                                    URL='CadastroProduto.php'\">";
                             }
                         }
 
                         if (isset($_POST['limpar'])) {
                             $pr = null;
                             unset($_GET['id']);
-                            header("Location: cadastroProduto.php");
+                            header("Location: CadastroProduto.php");
                         }
                         if (isset($_GET['id'])) {
                             $btEnviar = TRUE;
@@ -255,6 +255,7 @@ $btExcluir = FALSE;
                                     <th>Compra (R$)</th>
                                     <th>Venda (R$)</th>
                                     <th>Estoque</th>
+                                    <th>Fornecedor</th>
                                     <th>Ações</th></tr>
                             </thead>
                             <tbody>
@@ -272,6 +273,7 @@ $btExcluir = FALSE;
                                             <td><?php print_r($lp->getVlrCompra()); ?></td>
                                             <td><?php print_r($lp->getVlrVenda()); ?></td>
                                             <td><?php print_r($lp->getQtdEstoque()); ?></td>
+                                            <td><?php print_r($lp->getFornecedor()->getNomeFornecedor()); ?></td>
                                             <td><a href="cadastroProduto.php?id=<?php echo $lp->getIdProduto(); ?>"
                                                    class="btn btn-light">
                                                     <img src="img/edita.png" width="32"></a>

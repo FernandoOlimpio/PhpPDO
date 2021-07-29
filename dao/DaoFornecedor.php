@@ -137,8 +137,8 @@ class DaoFornecedor{
                             $fornecedor->setCep($linha->cep );
                             $fornecedor->setRepresentante($linha->representante );
                             $fornecedor->setEmail($linha->email );
-                            $fornecedor->setTelfixo($linha->telfixo );
-                            $fornecedor->setTelcel($linha->telcel );
+                            $fornecedor->setTelFixo($linha->telfixo );
+                            $fornecedor->setTelCel($linha->telcel );
                            
                             $lista[$a] = $fornecedor;
                             $a++;

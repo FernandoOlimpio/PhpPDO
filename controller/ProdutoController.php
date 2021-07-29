@@ -11,16 +11,16 @@ include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';
 
 class ProdutoController {
     public function inserirProduto($nomeProduto, $vlrCompra, 
-            $vlrVenda, $qtdEstoque, $fkFornecedor){
+            $vlrVenda, $qtdEstoque, $fornecedor){
         $produto = new Produto();
         $produto->setNomeProduto($nomeProduto);
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
-        $produto->getFkFornecedor($fkFornecedor);
+        $produto->getFornecedor($fornecedor);
         
         $daoProduto = new DaoProduto();
-        return $daoProduto->inserir($produto);
+        return $daoProduto->inserirProdutoDAO($produto);
     }
     
     //método para atualizar dados de produto no BD

@@ -1,18 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';
 include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Mensagem.php';
+include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Fornecedor.php';
 
 class DaoProduto {
 
-     public function inserir(Produto $produto){
+     public function inserirProdutoDAO(Produto $produto){
         $conn = new Conecta();
         $msg = new Mensagem();
         $conecta = $conn->conectadb();
@@ -21,7 +17,7 @@ class DaoProduto {
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
-            $fkFornecedor = $produto->getFkFornecedor();
+            $fornecedor = $produto->getFornecedor();
             try {
                 $stmt = $conecta->prepare("insert into produto values "
                         . "(null,?,?,?,?,?)");
@@ -29,7 +25,7 @@ class DaoProduto {
                 $stmt->bindParam(2, $vlrCompra);
                 $stmt->bindParam(3, $vlrVenda);
                 $stmt->bindParam(4, $qtdEstoque);
-                $stmt->bindParam(5, $fkFornecedor);
+                $stmt->bindParam(5, $fornecedor);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
@@ -87,11 +83,10 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         if($conecta){
             try {
-                $rs = $conecta->query("select * from produto inner join fornecedor"
-                        . "on produto.fkfornecedor = fornecedor.idfornecedor ");
+                $rs = $conecta->query("SELECT * FROM produto ");
                 $lista = array();
                 $a = 0;
-                if($rs->execute()){
+                if($rs-> execute()){
                     if($rs->rowCount() > 0){
                         while($linha = $rs->fetch(PDO::FETCH_OBJ)){
                             $produto = new Produto();
@@ -100,6 +95,24 @@ class DaoProduto {
                             $produto->setVlrCompra($linha->vlrCompra);
                             $produto->setVlrVenda($linha->vlrVenda);
                             $produto->setQtdEstoque($linha->qtdEstoque);
+                            
+                            $forn = new Fornecedor();
+                            $forn->setIdFornecedor($linha->idfornecedor);
+                            $forn->setNomeFornecedor($linha->nomefornecedor);
+                            $forn->setLogradouro($linha->logradouro);
+                            $forn->setNumero($linha->numero);
+                            $forn->setComplemento($linha->complemento);
+                            $forn->setBairro($linha->bairro);
+                            $forn->setCidade($linha->cidade);
+                            $forn->setUf($linha->uf);
+                            $forn->setCep($linha->cep);
+                            $forn->setRepresentante($linha->representante);
+                            $forn->setEmail($linha->email);
+                            $forn->setTelFixo($linha->telfixo);
+                            $forn->setTelCel($linha->telcel);
+                            
+                            $produto->setFornecedor($forn);
+                            
                             $lista[$a] = $produto;
                             $a++;
                         }
@@ -154,6 +167,23 @@ class DaoProduto {
                             $produto->setVlrCompra($linha->vlrCompra);
                             $produto->setVlrVenda($linha->vlrVenda);
                             $produto->setQtdEstoque($linha->qtdEstoque);
+                            
+                            $forn = new Fornecedor();
+                            $forn->setIdFornecedor($linha->idfornecedor);
+                            $forn->setNomeFornecedor($linha->nomefornecedor);
+                            $forn->setLogradouro($linha->logradouro);
+                            $forn->setNumero($linha->numero);
+                            $forn->setComplemento($linha->complemento);
+                            $forn->setBairro($linha->bairro);
+                            $forn->setCidade($linha->cidade);
+                            $forn->setUf($linha->uf);
+                            $forn->setCep($linha->cep);
+                            $forn->setRepresentante($linha->representante);
+                            $forn->setEmail($linha->email);
+                            $forn->setTelFixo($linha->telfixo);
+                            $forn->setTelCel($linha->telcel);
+                            
+                            $produto->setFornecedor($forn);
                         }
                     }
                 }
@@ -164,7 +194,7 @@ class DaoProduto {
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-			 URL='../PHPMatutino01/cadastroProduto.php'\">"; 
+			 URL='../PhpMatutinoPDO/CadastroProduto.php'\">"; 
         }
         return $produto;
     }
