@@ -127,6 +127,8 @@ $btExcluir = FALSE;
                             }
                         }
                         
+                        
+                        
                         if (isset($_POST['excluir'])) {
                             if ($f != null) {
                                 $idFornecedor = $_POST['ide'];
