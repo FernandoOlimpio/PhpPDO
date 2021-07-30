@@ -1,13 +1,13 @@
 <?php
 
 
-/*
+
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/dao/DaoProduto.php';//sala
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
-*/
+/*
 include_once 'c:/xampp/htdocs/PhpPDO/dao/DaoProduto.php';//casa
 include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa
-
+*/
 class ProdutoController {
     public function inserirProduto($nomeProduto, $vlrCompra, 
             $vlrVenda, $qtdEstoque, $fornecedor){
@@ -16,7 +16,7 @@ class ProdutoController {
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
-        $produto->getFornecedor($fornecedor);
+        $produto->setFornecedor($fornecedor);
         
         $daoProduto = new DaoProduto();
         return $daoProduto->inserirProdutoDAO($produto);
@@ -24,13 +24,14 @@ class ProdutoController {
     
     //método para atualizar dados de produto no BD
     public function atualizarProduto($id, $nomeProduto, $vlrCompra, 
-            $vlrVenda, $qtdEstoque){
+            $vlrVenda, $qtdEstoque, $fornecedor){
         $produto = new Produto();
         $produto->setIdProduto($id);
         $produto->setNomeProduto($nomeProduto);
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
+        $produto->setFornecedor($fornecedor);
         
         $daoProduto = new DaoProduto();
         return $daoProduto->atualizarProdutoDAO($produto);

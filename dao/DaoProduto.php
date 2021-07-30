@@ -1,16 +1,16 @@
 <?php
 
 
-/*include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//sala
+include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//sala
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Mensagem.php';//sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//sala
-*/
+/*
 include_once 'c:/xampp/htdocs/PhpPDO/bd/Conecta.php';//casa
 include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Mensagem.php';//casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//casa
-
+*/
 class DaoProduto {
 
      public function inserirProdutoDAO(Produto $produto){
@@ -56,18 +56,22 @@ class DaoProduto {
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
+            $fornecedor = $produto->getFornecedor();
             try{
                 $stmt = $conecta->prepare("update produto set "
                         . "nome = ?,"
                         . "vlrCompra = ?,"
                         . "vlrVenda = ?, "
-                        . "qtdEstoque = ? "
+                        . "qtdEstoque = ?, "
+                        . "fkfornecedor = ?"
                         . "where id = ?");
                 $stmt->bindParam(1, $nomeProduto);
                 $stmt->bindParam(2, $vlrCompra);
                 $stmt->bindParam(3, $vlrVenda);
                 $stmt->bindParam(4, $qtdEstoque);
-                $stmt->bindParam(5, $id);
+                $stmt->bindParam(5, $fornecedor);
+                $stmt->bindParam(6, $id);
+                
                 $stmt->execute();
                 $msg->setMsg("<p style='color: blue;'>"
                         . "Dados atualizados com sucesso</p>");
@@ -88,10 +92,12 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         if($conecta){
             try {
-                $rs = $conecta->query("SELECT * FROM produto ");
+                $rs = $conecta->query("SELECT * FROM produto INNER JOIN fornecedor"
+                        . " on produto.fkfornecedor = fornecedor.idfornecedor"
+                        . "ORDER BY produto.id DESC");
                 $lista = array();
                 $a = 0;
-                if($rs-> execute()){
+                if($rs->execute()){
                     if($rs->rowCount() > 0){
                         while($linha = $rs->fetch(PDO::FETCH_OBJ)){
                             $produto = new Produto();
@@ -105,7 +111,7 @@ class DaoProduto {
                             $forn->setIdFornecedor($linha->idfornecedor);
                             $forn->setNomeFornecedor($linha->nomefornecedor);
                             $forn->setLogradouro($linha->logradouro);
-                            $forn->setNumero($linha->numero);
+                            
                             $forn->setComplemento($linha->complemento);
                             $forn->setBairro($linha->bairro);
                             $forn->setCidade($linha->cidade);
@@ -138,7 +144,7 @@ class DaoProduto {
         $msg = new Mensagem();
         if($conecta){
              try {
-                $stmt = $conecta->prepare("delete from produto "
+                $stmt = $conecta->prepare("delete *from produto "
                         . "where id = ?");
                 $stmt->bindParam(1, $id);
                 $stmt->execute();
@@ -161,8 +167,9 @@ class DaoProduto {
         $produto = new Produto();
         if($conecta){
             try {
-                $rs = $conecta->prepare("select * from produto where "
-                        . "id = ?");
+                $rs = $conecta->prepare("select * from produto inner join "
+                        . "fornecedor on produto.fkfornecedor = fornecedor.idfornecedor "
+                        . "where produto.id = ?");
                 $rs->bindParam(1, $id);
                 if($rs->execute()){
                     if($rs->rowCount() > 0){
@@ -177,7 +184,7 @@ class DaoProduto {
                             $forn->setIdFornecedor($linha->idfornecedor);
                             $forn->setNomeFornecedor($linha->nomefornecedor);
                             $forn->setLogradouro($linha->logradouro);
-                            $forn->setNumero($linha->numero);
+                         
                             $forn->setComplemento($linha->complemento);
                             $forn->setBairro($linha->bairro);
                             $forn->setCidade($linha->cidade);

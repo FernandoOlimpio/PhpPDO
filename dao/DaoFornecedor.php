@@ -1,12 +1,12 @@
 <?php
-/*include_once 'C:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//include sala
+include_once 'C:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//include sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//include sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Mensagem.php';//include sala
-*/
+/*
 include_once 'C:/xampp/htdocs/PhpPDO/bd/Conecta.php'; //include casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//include casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Mensagem.php';//include casa
-
+*/
 class DaoFornecedor{
      public function inserirFornecedorDAO(Fornecedor $fornecedor){
         $conn = new Conecta();
@@ -15,7 +15,7 @@ class DaoFornecedor{
         if($conecta){
             $nomeFornecedor = $fornecedor->getNomeFornecedor();
             $logradouro = $fornecedor->getLogradouro();
-            $numero = $fornecedor->getNumero();
+            
             $complemento = $fornecedor->getComplemento();
             $bairro = $fornecedor->getBairro();
             $cidade = $fornecedor->getCidade();
@@ -28,19 +28,19 @@ class DaoFornecedor{
             
             try {
                 $stmt = $conecta->prepare("insert into fornecedor values "
-                        . "(null,?,?,?,?,?,?,?,?,?,?,?,?)");
+                        . "(null,?,?,?,?,?,?,?,?,?,?,?)");
                 $stmt->bindParam(1, $nomeFornecedor);
                 $stmt->bindParam(2, $logradouro);
-                $stmt->bindParam(3, $numero);
-                $stmt->bindParam(4, $complemento);
-                $stmt->bindParam(5, $bairro);
-                $stmt->bindParam(6, $cidade);
-                $stmt->bindParam(7, $uf);
-                $stmt->bindParam(8, $cep);
-                $stmt->bindParam(9, $representante);
-                $stmt->bindParam(10, $email);
-                $stmt->bindParam(11, $telFixo);
-                $stmt->bindParam(12, $telCel);
+                
+                $stmt->bindParam(3, $complemento);
+                $stmt->bindParam(4, $bairro);
+                $stmt->bindParam(5, $cidade);
+                $stmt->bindParam(6, $uf);
+                $stmt->bindParam(7, $cep);
+                $stmt->bindParam(8, $representante);
+                $stmt->bindParam(9, $email);
+                $stmt->bindParam(10, $telFixo);
+                $stmt->bindParam(11, $telCel);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
@@ -64,7 +64,7 @@ class DaoFornecedor{
             $idFornecedor = $fornecedor->getIdFornecedor();
             $nomeFornecedor = $fornecedor->getNomeFornecedor();
             $logradouro = $fornecedor->getLogradouro();
-            $numero = $fornecedor->getNumero();
+            
             $complemento = $fornecedor->getComplemento();
             $bairro = $fornecedor->getBairro();
             $cidade = $fornecedor->getCidade();
@@ -78,7 +78,7 @@ class DaoFornecedor{
                 $stmt = $conecta->prepare("update fornecedor set "
                         . "nomefornecedor = ?,"
                         . "logradouro  = ?,"
-                        . "numero  = ?, "
+                        
                         . "complemento  = ?, "
                         . "bairro = ?, "
                         . "cidade = ?, "
@@ -92,17 +92,17 @@ class DaoFornecedor{
                 
                 $stmt->bindParam(1, $nomeFornecedor);
                 $stmt->bindParam(2, $logradouro);
-                $stmt->bindParam(3, $numero);
-                $stmt->bindParam(4, $complemento);
-                $stmt->bindParam(5, $bairro);
-                $stmt->bindParam(6, $cidade);
-                $stmt->bindParam(7, $uf);
-                $stmt->bindParam(8, $cep);
-                $stmt->bindParam(9, $representante);
-                $stmt->bindParam(10, $email);
-                $stmt->bindParam(11, $telFixo);
-                $stmt->bindParam(12, $telCel);
-                $stmt->bindParam(13, $idFornecedor);
+                
+                $stmt->bindParam(3, $complemento);
+                $stmt->bindParam(4, $bairro);
+                $stmt->bindParam(5, $cidade);
+                $stmt->bindParam(6, $uf);
+                $stmt->bindParam(7, $cep);
+                $stmt->bindParam(8, $representante);
+                $stmt->bindParam(9, $email);
+                $stmt->bindParam(10, $telFixo);
+                $stmt->bindParam(11, $telCel);
+                $stmt->bindParam(12, $idFornecedor);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: blue;'>"
                         . "Dados atualizados com sucesso</p>");
@@ -133,7 +133,7 @@ class DaoFornecedor{
                             $fornecedor->setIdFornecedor($linha->idfornecedor );
                             $fornecedor->setNomeFornecedor($linha->nomefornecedor );
                             $fornecedor->setLogradouro($linha->logradouro );
-                            $fornecedor->setNumero($linha->numero );
+                            
                             $fornecedor->setComplemento($linha->complemento );
                             $fornecedor->setBairro($linha->bairro );
                             $fornecedor->setCidade($linha->cidade );
@@ -196,7 +196,7 @@ class DaoFornecedor{
                             $fornecedor->setIdFornecedor($linha->idfornecedor);
                             $fornecedor->setNomeFornecedor($linha->nomefornecedor);
                             $fornecedor->setLogradouro($linha->logradouro );
-                            $fornecedor->setNumero($linha->numero );
+                            
                             $fornecedor->setComplemento($linha->complemento );
                             $fornecedor->setBairro($linha->bairro);
                             $fornecedor->setCidade($linha->cidade);

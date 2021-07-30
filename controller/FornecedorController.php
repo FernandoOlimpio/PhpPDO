@@ -1,20 +1,20 @@
 <?php
 
-/*include_once 'C:/xampp/htdocs/PhpMatutinoPDO/dao/DaoFornecedor.php';//sala
+include_once 'C:/xampp/htdocs/PhpMatutinoPDO/dao/DaoFornecedor.php';//sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//sala
-*/
+/*
 include_once 'C:/xampp/htdocs/PhpPDO/dao/DaoFornecedor.php';//casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//casa
-
+*/
 class FornecedorController {
     
-    public function inserirFornecedor($nomeFornecedor, $logradouro, $numero,
+    public function inserirFornecedor($nomeFornecedor, $logradouro,
             $complemento, $bairro, $cidade, $uf, $cep, $representante, $email,
             $telFixo, $telCel){
         $fornecedor = new Fornecedor();
         $fornecedor->setNomeFornecedor($nomeFornecedor);
         $fornecedor->setLogradouro($logradouro);
-        $fornecedor->setNumero($numero);
+        
         $fornecedor->setComplemento($complemento);
         $fornecedor->setBairro($bairro);
         $fornecedor->setCidade($cidade);
@@ -31,14 +31,14 @@ class FornecedorController {
     }
     
     //método para atualizar dados de fornecedor no BD
-    public function atualizarFornecedor($idFornecedor, $nomeFornecedor, $logradouro, $numero,
+    public function atualizarFornecedor($idFornecedor, $nomeFornecedor, $logradouro, 
             $complemento, $bairro, $cidade, $uf, $cep, $representante, $email,
             $telFixo, $telCel){
         $fornecedor = new Fornecedor();
         $fornecedor->setIdFornecedor($idFornecedor);
         $fornecedor->setNomeFornecedor($nomeFornecedor);
         $fornecedor->setLogradouro($logradouro);
-        $fornecedor->setNumero($numero);
+        
         $fornecedor->setComplemento($complemento);
         $fornecedor->setBairro($bairro);
         $fornecedor->setCidade($cidade);

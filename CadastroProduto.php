@@ -1,12 +1,17 @@
 <?php
 
 
-//include_once 'c:/xampp/htdocs/PhpMatutinoPDO/controller/ProdutoController.php'; //include sala de aula
-include_once 'c:/xampp/htdocs/PhpPDO/controller/ProdutoController.php'; //include casa
+include_once 'controller/ProdutoController.php';
+
 include_once './model/Produto.php';
 include_once './model/Mensagem.php';
+include_once './model/Fornecedor.php';
+include_once './controller/FornecedorController.php';
 $msg = new Mensagem();
 $pr = new Produto();
+$fc = new FornecedorController();
+$fornecedor = new Fornecedor();
+$pr->setFornecedor($fornecedor);
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
@@ -28,6 +33,18 @@ $btExcluir = FALSE;
                 margin-bottom: 20px;
             }
         </style>
+        <script>
+    function mascara(t, mask){
+ var i = t.value.length;
+ var saida = mask.substring(1,0);
+ var texto = mask.substring(i)
+ if (texto.substring(0,1) != saida){
+ t.value += texto.substring(0,1);
+ 
+ }
+    }
+ 
+ </script>
     </head>
 
     <body> 
@@ -99,11 +116,12 @@ $btExcluir = FALSE;
                                 $vlrCompra = $_POST['vlrCompra'];
                                 $vlrVenda = $_POST['vlrVenda'];
                                 $qtdEstoque = $_POST['qtdEstoque'];
+                                $fornecedor = $_POST['idFornecedor'];
 
                                 $pc = new ProdutoController();
                                 unset($_POST['atualizarProduto']);
                                 $msg = $pc->atualizarProduto($id, $nomeProduto, 
-                                        $vlrCompra, $vlrVenda, $qtdEstoque);
+                                        $vlrCompra, $vlrVenda, $qtdEstoque, $fornecedor);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='CadastroProduto.php'\">";
@@ -181,13 +199,24 @@ $btExcluir = FALSE;
                                     <select class="form-control" name="idFornecedor">
                                         <option> [--SELECIONE--]</option>
                                         <?php
-                                         include_once './controller/FornecedorController.php';
-                                         $fc = new FornecedorController();
+                                         
                                          $listaFornecedores= $fc->listarFornecedor();
                                          if($listaFornecedores != null){
                                              foreach ($listaFornecedores as $lf){
                                                  ?>
-                                        <option value="<?php echo $lf->getIdFornecedor();?>">
+                                        <option value="<?php echo $lf->getIdFornecedor();?>"
+                                            
+                                         <?php
+                                            $fk = $pr->getFornecedor()->getIdfornecedor();
+                                            if($pr->getFornecedor()->getIdfornecedor() != ""){
+                                                if($lf->getIdfornecedor() == 
+                                                        $pr->getFornecedor()->getIdfornecedor()){
+                                                    echo "selected = 'selected'";
+                                                }
+                                            }
+                                            ?>
+                                            >
+                                            
                                             <?php echo $lf->getNomeFornecedor();?></option>
                                         <?php
                                              }
@@ -275,6 +304,7 @@ $btExcluir = FALSE;
                                             <td><?php print_r($lp->getVlrVenda()); ?></td>
                                             <td><?php print_r($lp->getQtdEstoque()); ?></td>
                                             <td><?php print_r($lp->getFornecedor()->getNomeFornecedor()); ?></td>
+                                            
                                             <td><a href="cadastroProduto.php?id=<?php echo $lp->getIdProduto(); ?>"
                                                    class="btn btn-light">
                                                     <img src="img/edita.png" width="32"></a>

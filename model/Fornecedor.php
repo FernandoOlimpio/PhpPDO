@@ -5,7 +5,7 @@ class Fornecedor {
     private $idFornecedor;
     private $nomeFornecedor;
     private $logradouro;
-    private $numero;
+    
     private $complemento;
     private $bairro;
     private $cidade;
@@ -28,9 +28,7 @@ class Fornecedor {
         return $this->logradouro;
     }
 
-    function getNumero() {
-        return $this->numero;
-    }
+    
 
     function getComplemento() {
         return $this->complemento;
@@ -80,9 +78,7 @@ class Fornecedor {
         $this->logradouro = $logradouro;
     }
 
-    function setNumero($numero) {
-        $this->numero = $numero;
-    }
+  
 
     function setComplemento($complemento) {
         $this->complemento = $complemento;
