@@ -1,7 +1,10 @@
 <?php
 
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/dao/DaoFornecedor.php';
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Fornecedor.php';
+/*include_once 'C:/xampp/htdocs/PhpMatutinoPDO/dao/DaoFornecedor.php';//sala
+include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//sala
+*/
+include_once 'C:/xampp/htdocs/PhpPDO/dao/DaoFornecedor.php';//casa
+include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//casa
 
 class FornecedorController {
     

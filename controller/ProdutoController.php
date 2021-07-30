@@ -1,13 +1,12 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/dao/DaoProduto.php';
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';
+/*
+include_once 'c:/xampp/htdocs/PhpMatutinoPDO/dao/DaoProduto.php';//sala
+include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
+*/
+include_once 'c:/xampp/htdocs/PhpPDO/dao/DaoProduto.php';//casa
+include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa
 
 class ProdutoController {
     public function inserirProduto($nomeProduto, $vlrCompra, 

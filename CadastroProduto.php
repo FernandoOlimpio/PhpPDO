@@ -1,7 +1,8 @@
 <?php
 
 
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/controller/ProdutoController.php';
+//include_once 'c:/xampp/htdocs/PhpMatutinoPDO/controller/ProdutoController.php'; //include sala de aula
+include_once 'c:/xampp/htdocs/PhpPDO/controller/ProdutoController.php'; //include casa
 include_once './model/Produto.php';
 include_once './model/Mensagem.php';
 $msg = new Mensagem();

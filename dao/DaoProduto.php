@@ -1,10 +1,15 @@
 <?php
 
 
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Mensagem.php';
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Fornecedor.php';
+/*include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//sala
+include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
+include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Mensagem.php';//sala
+include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//sala
+*/
+include_once 'c:/xampp/htdocs/PhpPDO/bd/Conecta.php';//casa
+include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa
+include_once 'C:/xampp/htdocs/PhpPDO/model/Mensagem.php';//casa
+include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//casa
 
 class DaoProduto {
 
