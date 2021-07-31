@@ -2,8 +2,8 @@
 
 
 
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/dao/DaoProduto.php';//sala
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
+include_once './dao/DaoProduto.php';//sala
+include_once './model/Produto.php';//sala
 /*
 include_once 'c:/xampp/htdocs/PhpPDO/dao/DaoProduto.php';//casa
 include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa

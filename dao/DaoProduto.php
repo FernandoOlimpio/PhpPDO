@@ -1,16 +1,17 @@
 <?php
 
-
+/*
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//sala
 include_once 'c:/xampp/htdocs/PhpMatutinoPDO/model/Produto.php';//sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Mensagem.php';//sala
 include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//sala
-/*
-include_once 'c:/xampp/htdocs/PhpPDO/bd/Conecta.php';//casa
-include_once 'c:/xampp/htdocs/PhpPDO/model/Produto.php';//casa
-include_once 'C:/xampp/htdocs/PhpPDO/model/Mensagem.php';//casa
-include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//casa
 */
+include_once './bd/Conecta.php';//casa
+include_once './model/Produto.php';//casa
+include_once './model/Mensagem.php';//casa
+include_once './model/Fornecedor.php';//casa
+
+
 class DaoProduto {
 
      public function inserirProdutoDAO(Produto $produto){
@@ -89,12 +90,13 @@ class DaoProduto {
     //método para carregar lista de produtos do banco de dados
     public function listarProdutosDAO(){
         $conn = new Conecta();
+        $msg = new Mensagem();
         $conecta = $conn->conectadb();
         if($conecta){
             try {
                 $rs = $conecta->query("SELECT * FROM produto INNER JOIN fornecedor"
                         . " on produto.fkfornecedor = fornecedor.idfornecedor"
-                        . "ORDER BY produto.id DESC");
+                        /*. "ORDER BY produto.id DESC"*/); //order by não funciona
                 $lista = array();
                 $a = 0;
                 if($rs->execute()){

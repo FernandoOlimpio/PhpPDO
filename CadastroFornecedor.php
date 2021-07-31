@@ -1,7 +1,7 @@
 
 
 <?php
-include_once 'c:/xampp/htdocs/PhpMatutinoPDO/controller/FornecedorController.php';//sala
+include_once './controller/FornecedorController.php';//sala
 //include_once 'c:/xampp/htdocs/PhpPDO/controller/FornecedorController.php';//casa
 include_once './model/Fornecedor.php';
 include_once './model/Mensagem.php';

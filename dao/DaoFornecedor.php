@@ -1,7 +1,7 @@
 <?php
-include_once 'C:/xampp/htdocs/PhpMatutinoPDO/bd/Conecta.php';//include sala
-include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Fornecedor.php';//include sala
-include_once 'C:/xampp/htdocs/PhpMatutinoPDO/model/Mensagem.php';//include sala
+include_once './bd/Conecta.php';//include sala
+include_once './model/Fornecedor.php';//include sala
+include_once './model/Mensagem.php';//include sala
 /*
 include_once 'C:/xampp/htdocs/PhpPDO/bd/Conecta.php'; //include casa
 include_once 'C:/xampp/htdocs/PhpPDO/model/Fornecedor.php';//include casa

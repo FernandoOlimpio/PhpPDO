@@ -1,7 +1,7 @@
 <?php
 
 
-include_once 'controller/ProdutoController.php';
+include_once './controller/ProdutoController.php';
 
 include_once './model/Produto.php';
 include_once './model/Mensagem.php';
@@ -37,7 +37,7 @@ $btExcluir = FALSE;
     function mascara(t, mask){
  var i = t.value.length;
  var saida = mask.substring(1,0);
- var texto = mask.substring(i)
+ var texto = mask.substring(i);
  if (texto.substring(0,1) != saida){
  t.value += texto.substring(0,1);
  
@@ -207,7 +207,7 @@ $btExcluir = FALSE;
                                         <option value="<?php echo $lf->getIdFornecedor();?>"
                                             
                                          <?php
-                                            $fk = $pr->getFornecedor()->getIdfornecedor();
+                                            /*$fk =*/ $pr->getFornecedor()->getIdfornecedor();
                                             if($pr->getFornecedor()->getIdfornecedor() != ""){
                                                 if($lf->getIdfornecedor() == 
                                                         $pr->getFornecedor()->getIdfornecedor()){
