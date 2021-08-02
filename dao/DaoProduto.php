@@ -146,7 +146,7 @@ class DaoProduto {
         $msg = new Mensagem();
         if($conecta){
              try {
-                $stmt = $conecta->prepare("delete *from produto "
+                $stmt = $conecta->prepare("delete from produto " //jumento! não colocar *(asterisco) antes do From para excluir.
                         . "where id = ?");
                 $stmt->bindParam(1, $id);
                 $stmt->execute();

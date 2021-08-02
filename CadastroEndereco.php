@@ -1,17 +1,12 @@
 <?php
 
-
-include_once './controller/ProdutoController.php';
-
-include_once './model/Produto.php';
 include_once './model/Mensagem.php';
-include_once './model/Fornecedor.php';
-include_once './controller/FornecedorController.php';
+include_once './model/Endereco.php';
+include_once './controller/EnderecoController.php';
 $msg = new Mensagem();
-$pr = new Produto();
-$fc = new FornecedorController();
-$fornecedor = new Fornecedor();
-$pr->setFornecedor($fornecedor);
+$end = new Endereco();
+$ec = new EnderecoController();
+
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
@@ -85,7 +80,7 @@ $btExcluir = FALSE;
             <div class="row" style="margin-top: 30px;">
                 <div class="col-md-4">
                     <div class="card-header bg-dark text-center border
-                         text-white"><strong>Cadastro de Produto</strong>
+                         text-white"><strong>Cadastro de Endereço</strong>
                     </div>
                     <div class="card-body border">
                         <?php
@@ -171,72 +166,58 @@ $btExcluir = FALSE;
                         <form method="post" action="">
                             <div class="row">
                                 <div class="col-md-12">
+                                    
                                     <strong>Código: <label style="color:red;">
                                             <?php
-                                            if ($pr != null) {
-                                                echo $pr->getIdProduto();
+                                            if ($end != null) {
+                                                echo $end->getIdEndereco();
                                                 ?>
                                             </label></strong>
-                                        <input type="hidden" name="idproduto" 
-                                               value="<?php echo $pr->getIdProduto(); ?>"><br>
+                                        <input type="hidden" name="idendereco" 
+                                               value="<?php echo $end->getIdEndereco; ?>"><br>
                                                <?php
                                            }
-                                           ?>     
-                                    <label>Produto</label>  
-                                    <input class="form-control" type="text" 
-                                           name="nomeProduto" 
-                                           value="<?php echo $pr->getNomeProduto(); ?>">
-                                    <label>Valor de Compra</label>  
-                                    <input class="form-control" type="text" 
-                                           value="<?php echo $pr->getVlrCompra(); ?>" name="vlrCompra">  
-                                    <label>Valor de Venda</label>  
-                                    <input class="form-control" type="text" 
-                                           value="<?php echo $pr->getVlrVenda(); ?>" name="vlrVenda"> 
-                                    <label>Qtde em Estoque</label>  
-                                    <input class="form-control" type="number" 
-                                           value="<?php echo $pr->getQtdEstoque(); ?>" name="qtdEstoque">
-                                    
-                                    <label>Fornecedor</label>  
-                                    <select class="form-control" name="idFornecedor">
-                                        <option> [--SELECIONE--]</option>
-                                        <?php
-                                         
-                                         $listaFornecedores= $fc->listarFornecedor();
-                                         if($listaFornecedores != null){
-                                             foreach ($listaFornecedores as $lf){
-                                                 ?>
-                                        <option value="<?php echo $lf->getIdFornecedor();?>"
-                                            
-                                         <?php
-                                            /*$fk =*/ $pr->getFornecedor()->getIdfornecedor();
-                                            if($pr->getFornecedor()->getIdfornecedor() != ""){
-                                                if($lf->getIdfornecedor() == 
-                                                        $pr->getFornecedor()->getIdfornecedor()){
-                                                    echo "selected = 'selected'";
-                                                }
-                                            }
-                                            ?>
-                                            >
-                                            
-                                            <?php echo $lf->getNomeFornecedor();?></option>
-                                        <?php
-                                             }
-                                         }
-                                        ?>
-                                    </select>
+                                           ?>
                                         
-                                
-                                    <input type="submit" name="cadastrarProduto"
+                                    <label>CEP</label>  
+                                    <input class="form-control" type="text"  
+                                           value="<?php echo $end->getCep(); ?>" name="cep">
+                                    
+                                    <label>Logradouro</label>  
+                                    <input class="form-control" type="text" 
+                                           value="<?php echo $end->getLogradouro(); ?>" name="logradouro">  
+                                    
+                                    <label>Complemento</label>  
+                                    <input class="form-control" type="text" 
+                                           value="<?php echo $end->getComplento(); ?>" name="complemento"> 
+                                    
+                                    <label>Bairro</label>  
+                                    <input class="form-control" type="text" 
+                                           value="<?php echo $end->getBairro(); ?>" name="bairro">
+                                    
+                                    <label>Cidade</label>  
+                                    <input class="form-control" type="text" 
+                                           value="<?php echo $end->getCidade(); ?>" name="cidade">
+                                    
+                                    <label>UF</label>  
+                                    <input class="form-control" type="text" 
+                                           value="<?php echo $end->getUf(); ?>" name="uf">
+                                    
+                                        
+                                    <input type="submit" name="cadastrarEndereco"
                                            class="btn btn-success btInput" value="Enviar"
                                            <?php if($btEnviar == TRUE) echo "disabled"; ?>>
-                                    <input type="submit" name="atualizarProduto"
+                                    
+                                    <input type="submit" name="atualizarEndereco"
                                            class="btn btn-secondary btInput" value="Atualizar"
                                            <?php if($btAtualizar == FALSE) echo "disabled"; ?>>
+                                    
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
                                             <?php if($btExcluir == FALSE) echo "disabled"; ?>>
                                         Excluir
                                     </button>
+                                    
                                     <!-- Modal para excluir -->
                                     <div class="modal fade" id="ModalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -255,7 +236,7 @@ $btExcluir = FALSE;
                                                     <h5>Deseja Excluir?</h5>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <input type="submit" name="excluirProduto"
+                                                    <input type="submit" name="excluirEndereco"
                                                            class="btn btn-success "
                                                            value="Sim">
                                                     <input type="submit" 
@@ -265,6 +246,7 @@ $btExcluir = FALSE;
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <!-- fim do modal para excluir -->
                                     &nbsp;&nbsp;
                                     <input type="submit" 
@@ -282,31 +264,33 @@ $btExcluir = FALSE;
                                style="border-radius: 3px; overflow:hidden;">
                             <thead class="table-dark">
                                 <tr><th>Código</th>
-                                    <th>Nome</th>
-                                    <th>Compra (R$)</th>
-                                    <th>Venda (R$)</th>
-                                    <th>Estoque</th>
-                                    <th>Fornecedor</th>
-                                    <th>Ações</th></tr>
+                                    <th>CEP</th>
+                                    <th>Logradouro</th>
+                                    <th>Complemento</th>
+                                    <th>Bairro</th>
+                                    <th>Cidade</th>
+                                    <th>UF</th></tr>
                             </thead>
+                            
                             <tbody>
                                 <?php
-                                $pcTable = new ProdutoController();
-                                $listaProdutos = $pcTable->listarProdutos();
+                                $ecTable = new EnderecoController();
+                                $listaEnderecos = $ecTable->listarEnderecos();
                                 $a = 0;
-                                if ($listaProdutos != null) {
-                                    foreach ($listaProdutos as $lp) {
+                                if ($listaEnderecos != null) {
+                                    foreach ($listaEnderecos as $le) {
                                         $a++;
                                         ?>
                                         <tr>
-                                            <td><?php print_r($lp->getIdProduto()); ?></td>
-                                            <td><?php print_r($lp->getNomeProduto()); ?></td>
-                                            <td><?php print_r($lp->getVlrCompra()); ?></td>
-                                            <td><?php print_r($lp->getVlrVenda()); ?></td>
-                                            <td><?php print_r($lp->getQtdEstoque()); ?></td>
-                                            <td><?php print_r($lp->getFornecedor()->getNomeFornecedor()); ?></td>
+                                            <td><?php print_r($le->getIdEndereco()); ?></td>
+                                            <td><?php print_r($le->getCep()); ?></td>
+                                            <td><?php print_r($le->getLogradouro()); ?></td>
+                                            <td><?php print_r($le->getComplemento()); ?></td>
+                                            <td><?php print_r($le->getBairro()); ?></td>
+                                            <td><?php print_r($le->getCidade()); ?></td>
+                                            <td><?php print_r($le->getUf()); ?></td>
                                             
-                                            <td><a href="CadastroProduto.php?id=<?php echo $lp->getIdProduto(); ?>"
+                                            <td><a href="CadastroEndereco.php?id=<?php echo $le->getIdEndereco(); ?>"
                                                    class="btn btn-light">
                                                     <img src="img/edita.png" width="32"></a>
                                                 </form>
@@ -326,10 +310,10 @@ $btExcluir = FALSE;
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="post" action="">
-                                                        <label><strong>Deseja excluir o produto 
-                                                                <?php echo $lp->getNomeProduto(); ?>?</strong></label>
+                                                        <label><strong>Deseja excluir o endereço? 
+                                                                <?php echo $le->getLogradouro(); ?>?</strong></label>
                                                         <input type="hidden" name="ide" 
-                                                               value="<?php echo $lp->getIdProduto(); ?>">
+                                                               value="<?php echo $le->getIdEndereco(); ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" name="excluir" class="btn btn-primary">Sim</button>
