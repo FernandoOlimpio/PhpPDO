@@ -1,16 +1,6 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of Pessoa
- *
- * @author 02520429135
- */
 class Pessoa {
     
     private $idPessoa;
@@ -21,7 +11,17 @@ class Pessoa {
     private $perfil;
     private $email;
     private $cpf;
+    private $endereco;
     
+    function getEndereco() {
+        return $this->endereco;
+    }
+
+    function setEndereco($endereco) {
+        $this->endereco = $endereco;
+    }
+
+        
     function getIdPessoa() {
         return $this->idPessoa;
     }

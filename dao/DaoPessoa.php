@@ -1,38 +1,47 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of daoGenerico
- *
- * @author 02520429135
- */
-
-include_once '../bd/Conecta.php';
-class daoPessoa {
-    public $conn;
+include_once './model/Pessoa.php';
+class DaoPessoa{
     
-    
-    function inserir(Pessoa $p){
+    public function inserirPessoaDAO(Pessoa $pessoa) {
         $conn = new Conecta();
-       
-            $sql = "insert into pessoa values (null,'".$p -> getNome()."', '".
-                    $p ->getDtNasc()."','".$p ->getLogin()."','".$p ->getSenha()."',
-                    '".$p -> getPerfil()."','".$p ->getEmail()."', '".$p ->getCpf()."')";
-            if (mysqli_query($conn ->conectadb(), $sql)){
-                $msg = "Dados cadastrados com sucesso!";
-            }else{
-                $msg = "Erro no cadastramento.";
-                mysqli_close($conn->conectadb());
-                return $msg;
-            }
+        $msg = new Mensagem();
+        $conecta = $conn->conectadb();
+        if($conecta){
             
-       
-        
+            $nome = $pessoa->getNome();
+            $dtNasc = $pessoa->getDtNasc();
+            $login = $pessoa->getLogin();
+            $senha = $pessoa->getSenha();
+            $perfil = $pessoa->getPerfil();
+            $email = $pessoa->getEmail();
+            $cpf = $pessoa->getCpf();
+            
+            $cep = $pessoa->getEndereco()->getCep();
+            $logradouro = $pessoa->getEndereco()->getLogradouro();
+            $complemento = $pessoa->getEndereco()->getComplemento();
+            $bairro = $pessoa->getEndereco()->getBairro();
+            $cidade = $pessoa->getEndereco()->getCidade();
+            $uf = $pessoa->getEndereco()->getUf();
+            
+            try {
+               $st = $conecta->prepare("select idendereco from endereco where cep = ? " //uando tem parametro a passar usa-se o prepare, aundo nao tem usa-se query
+                        . "logradouro = ?");
+                    
+               $st->bindParam(1,$cep);
+               $st->bindParam(2,$logradouro);
+               $linhaEndereco= $st->execute();
+               if ($linhaEndereco){
+                   $fkEnd= $linhaEndereco->idendereco;
+                   
+               }
+                
+                
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+                }
     }
     
 }
+

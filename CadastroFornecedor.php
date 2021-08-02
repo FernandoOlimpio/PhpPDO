@@ -20,7 +20,7 @@ $btExcluir = FALSE;
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
-        <title>Formulário</title>
+        <title>Formulário Fornecedor</title>
         <style>
             .btInput{
                 padding: 10px 20px 10px 20px;
