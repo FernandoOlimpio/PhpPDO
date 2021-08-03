@@ -108,10 +108,7 @@ $btExcluir = FALSE;
 
                                 $pesc = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
-                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login,
-                                        $senha, $perfil, $email, $cpf, $endCep,
-                                        $endLogradouro, $endComplemento, $endBairro, 
-                                        $endCidade, $endUf);
+                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $endCep, $endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                  URL='CadastroPessoa.php'\">";
@@ -139,10 +136,7 @@ $btExcluir = FALSE;
 
                                 $pesc = new PessoaController();
                                 unset($_POST['atualizarPessoa']);
-                                $msg = $pesc->atualizarPessoa($id,$nome, $dtNasc,
-                                        $login, $senha, $perfil, $email, $cpf, 
-                                        $$endCep, $$endLogradouro, $endComplemento,
-                                        $endBairro, $endCidade, $endUf);
+                                $msg = $pesc->atualizarPessoa($id, $nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $$endCep, $$endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='CadastroPessoa.php'\">";
@@ -210,15 +204,15 @@ $btExcluir = FALSE;
 
                                     <label> Data de Nascimento</label>
                                     <input class="form-control" type="date"
-                                           value="<?php echo $pes->get; ?>" name="dtNasc">
+                                           value="<?php echo $pes->getDtNasc(); ?>" name="dtNasc">
 
                                     <label> Login </label>
                                     <input class="form-control" type="text"
-                                           value="<?php echo $pes->get; ?>" name="login">
+                                           value="<?php echo $pes->getLogin(); ?>" name="login">
 
                                     <label> Senha </label>
                                     <input class="form-control" type="password"
-                                           value="<?php echo $pes->get; ?>" name="senha">
+                                           value="<?php echo $pes->getSenha(); ?>" name="senha">
 
                                     <label> Confirmar Senha </label>
                                     <input class="form-control" type="password"
@@ -235,11 +229,11 @@ $btExcluir = FALSE;
 
                                     <label> E-mail</label>
                                     <input class="form-control" type="email"
-                                           value="<?php echo $pes->get; ?>"  name="email">
+                                           value="<?php echo $pes->getEmail(); ?>"  name="email">
 
                                     <label> CPF</label>
                                     <input class="form-control" type="text"
-                                           value="<?php echo $pes->get; ?>" name="cpf">
+                                           value="<?php echo $pes->getCpf(); ?>" name="cpf">
 
                                     <label>CEP</label>  <label id="cepErro" style="color:red;"></label>
                                     <input class="form-control" type="text"  
@@ -269,15 +263,15 @@ $btExcluir = FALSE;
 
                                     <input type="submit" name="cadastrarPessoa"
                                            class="btn btn-success btInput" value="Enviar"
-<?php if ($btEnviar == TRUE) echo "disabled"; ?>>
+                                            <?php if ($btEnviar == TRUE) echo "disabled"; ?>>
 
                                     <input type="submit" name="atualizarPessoa"
                                            class="btn btn-secondary btInput" value="Atualizar"
-                                           <?php if ($btAtualizar == FALSE) echo "disabled"; ?>>
-
+                                            <?php if ($btAtualizar == FALSE) echo "disabled"; ?>>
+                                    
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
-                                           <?php if ($btExcluir == FALSE) echo "disabled"; ?>>
+                                            <?php if ($btExcluir == FALSE) echo "disabled"; ?>>
                                         Excluir
                                     </button>
 
