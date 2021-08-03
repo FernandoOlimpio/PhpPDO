@@ -108,7 +108,10 @@ $btExcluir = FALSE;
 
                                 $pesc = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
-                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $endCep, $endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
+                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login,
+                                        $senha, $perfil, $email, $cpf, $endCep,
+                                        $endLogradouro, $endComplemento, $endBairro, 
+                                        $endCidade, $endUf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                  URL='CadastroPessoa.php'\">";
@@ -187,16 +190,16 @@ $btExcluir = FALSE;
                             <div class="row">
                                 <div class="col-md-12 ">
                                     <strong>Código: <label style="color:red;">
-                        <?php
-                        if ($pes != null) {
-                            echo $pes->getIdPessoa();
-                            ?>
-                                            </label></strong>
+                                        <?php
+                                        if ($pes != null) {
+                                            echo $pes->getIdPessoa();
+                                            ?>
+                                         </label></strong>
                                         <input type="hidden" name="idpessoa" 
                                                value="<?php echo $pes->getIdPessoa(); ?>"><br>
-                                                <?php
-                                            }
-                                            ?>
+                                        <?php
+                                    }
+                                    ?>
 
                                     <label> Nome Completo</label>
                                     <input class="form-control" type="text"
@@ -218,8 +221,6 @@ $btExcluir = FALSE;
                                     <input class="form-control" type="password"
                                            name="senha2">
 
-
-
                                     <label> Perfil</label>
                                     <select name="perfil" class="form-control">
                                         <option> [SELECIONE]</option>
@@ -236,28 +237,28 @@ $btExcluir = FALSE;
                                            value="<?php echo $pes->getCpf(); ?>" name="cpf">
 
                                     <label>CEP</label>  <label id="cepErro" style="color:red;"></label>
-                                    <input class="form-control" type="text"  
+                                    <input class="form-control" type="text"  id="cep"
                                            value="<?php echo $pes->getEndereco()->getCep(); ?>" name="cep"
                                            onkeypress="mascara(this, '#####-###')" maxlength="9">
 
                                     <label>Logradouro</label>  
-                                    <input class="form-control" type="text" 
+                                    <input class="form-control" type="text" id="rua"
                                            value="<?php echo $pes->getEndereco()->getLogradouro(); ?>" name="logradouro">  
 
                                     <label>Complemento</label>  
-                                    <input class="form-control" type="text" 
+                                    <input class="form-control" type="text" id="complemento"
                                            value="<?php echo $pes->getEndereco()->getComplemento(); ?>" name="complemento"> 
 
                                     <label>Bairro</label>  
-                                    <input class="form-control" type="text" 
+                                    <input class="form-control" type="text" id="bairro"
                                            value="<?php echo $pes->getEndereco()->getBairro(); ?>" name="bairro">
 
                                     <label>Cidade</label>  
-                                    <input class="form-control" type="text" 
+                                    <input class="form-control" type="text" id="cidade"
                                            value="<?php echo $pes->getEndereco()->getCidade(); ?>" name="cidade">
 
                                     <label>UF</label>  
-                                    <input class="form-control" type="text" 
+                                    <input class="form-control" type="text" id="uf"
                                            value="<?php echo $pes->getEndereco()->getUf(); ?>" name="uf">
 
 
@@ -267,11 +268,11 @@ $btExcluir = FALSE;
 
                                     <input type="submit" name="atualizarPessoa"
                                            class="btn btn-secondary btInput" value="Atualizar"
-                                            <?php if ($btAtualizar == FALSE) echo "disabled"; ?>>
-                                    
+<?php if ($btAtualizar == FALSE) echo "disabled"; ?>>
+
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
-                                            <?php if ($btExcluir == FALSE) echo "disabled"; ?>>
+<?php if ($btExcluir == FALSE) echo "disabled"; ?>>
                                         Excluir
                                     </button>
 
@@ -347,6 +348,7 @@ $btExcluir = FALSE;
 $pescTable = new PessoaController();
 $listaPessoas = $pescTable->listarPessoas();
 $a = 0;
+
 if ($listaPessoas != null) {
     foreach ($listaPessoas as $lpes) {
         $a++;
@@ -416,74 +418,85 @@ if ($listaPessoas != null) {
 
     <script src="js/bootstrap.js"</script>
     <script src="js/bootstrap.min.js" </script>
+    <script src="js/JQuery.js"></script>
+    <script src="js/JQuery.min.js"></script>
+
+    <script>
+                                               var myModal = document.getElementById('myModal')
+                                               var myInput = document.getElementById('myInput')
+
+                                               myModal.addEventListener('shown.bs.modal', function () {
+                                                   myInput.focus()
+                                               })
+    </script>
 
     <!-- Controle de endereço ViaCep -->
     <script>
 
-                                               $(document).ready(function () {
+        $(document).ready(function () {
 
-                                                   function limpa_formulário_cep() {
-                                                       // Limpa valores do formulário de cep.
-                                                       $("#rua").val("");
-                                                       $("#bairro").val("");
-                                                       $("#cidade").val("");
-                                                       $("#uf").val("");
-                                                       $("#cepErro").val("");
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");
+                $("#cepErro").val("");
 
-                                                   }
+            }
 
-                                                   //Quando o campo cep perde o foco.
-                                                   $("#cep").blur(function () {
+            //Quando o campo cep perde o foco.
+            $("#cep").blur(function () {
 
-                                                       //Nova variável "cep" somente com dígitos.
-                                                       var cep = $(this).val().replace(/\D/g, '');
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
 
-                                                       //Verifica se campo cep possui valor informado.
-                                                       if (cep != "") {
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
 
-                                                           //Expressão regular para validar o CEP.
-                                                           var validacep = /^[0-9]{8}$/;
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
 
-                                                           //Valida o formato do CEP.
-                                                           if (validacep.test(cep)) {
+                    //Valida o formato do CEP.
+                    if (validacep.test(cep)) {
 
-                                                               //Preenche os campos com "..." enquanto consulta webservice.
-                                                               $("#rua").val("...");
-                                                               $("#bairro").val("...");
-                                                               $("#cidade").val("...");
-                                                               $("#uf").val("...");
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+                        $("#uf").val("...");
 
 
-                                                               //Consulta o webservice viacep.com.br/
-                                                               $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
 
-                                                                   if (!("erro" in dados)) {
-                                                                       //Atualiza os campos com os valores da consulta.
-                                                                       $("#rua").val(dados.logradouro);
-                                                                       $("#bairro").val(dados.bairro);
-                                                                       $("#cidade").val(dados.localidade);
-                                                                       $("#uf").val(dados.uf);
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                                $("#uf").val(dados.uf);
 
-                                                                   } //end if.
-                                                                   else {
-                                                                       //CEP pesquisado não foi encontrado.
-                                                                       limpa_formulário_cep();
-                                                                       alert("CEP não encontrado.");
-                                                                   }
-                                                               });
-                                                           } //end if.
-                                                           else {
-                                                               //cep é inválido.
-                                                               limpa_formulário_cep();
-                                                               alert("Formato de CEP inválido.");
-                                                           }
-                                                       } //end if.
-                                                       else {
-                                                           //cep sem valor, limpa formulário.
-                                                           limpa_formulário_cep();
-                                                       }
-                                                   });
-                                               });
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            });
+        });
 
     </script>
 </body>   
