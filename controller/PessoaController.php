@@ -1,6 +1,8 @@
 <?php
 
-
+include_once './dao/DaoPessoa.php';
+include_once './model/Pessoa.php';
+include_once './model/Endereco.php';
 class PessoaController {
 
     function inserirPessoa($nome, $dtNasc, $login, $senha, $perfil, $email, $cpf,
@@ -20,7 +22,7 @@ class PessoaController {
         $endereco = new Endereco();
         $endereco->setCep($cep);
         $endereco->setLogradouro($logradouro);
-        $endereco->setComplento($complemento);
+        $endereco->setComplemento($complemento);
         $endereco->setBairro($bairro);
         $endereco->setCidade($cidade);
         $endereco->setUf($uf);
@@ -48,7 +50,7 @@ class PessoaController {
         $endereco = new Endereco();
         $endereco->setCep($cep);
         $endereco->setLogradouro($logradouro);
-        $endereco->setComplento($complemento);
+        $endereco->setComplemento($complemento);
         $endereco->setBairro($bairro);
         $endereco->setCidade($cidade);
         $endereco->setUf($uf);
@@ -62,7 +64,7 @@ class PessoaController {
     
     public function listarPessoas() {
         $daoPessoa = new DaoPessoa();
-        return $daoPessoa->ListarPessoasDAO();
+        return $daoPessoa->listarPessoasDAO();
     }
 
 }

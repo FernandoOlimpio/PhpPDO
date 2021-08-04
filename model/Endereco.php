@@ -5,7 +5,7 @@ class Endereco{
     private $idEndereco;
     private $cep;
     private $logradouro;
-    private $complento;
+    private $complemento;
     private $bairro;
     private $cidade;
     private $uf;
@@ -22,8 +22,8 @@ class Endereco{
         return $this->logradouro;
     }
 
-    function getComplento() {
-        return $this->complento;
+    function getComplemento() {
+        return $this->complemento;
     }
 
     function getBairro() {
@@ -50,8 +50,8 @@ class Endereco{
         $this->logradouro = $logradouro;
     }
 
-    function setComplento($complento) {
-        $this->complento = $complento;
+    function setComplemento($complemento) {
+        $this->complemento = $complemento;
     }
 
     function setBairro($bairro) {

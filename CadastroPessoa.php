@@ -2,10 +2,11 @@
 include_once './model/Mensagem.php';
 include_once './model/Endereco.php';
 include_once './model/Pessoa.php';
+include_once './controller/PessoaController.php';
 $msg = new Mensagem();
 $pes = new Pessoa();
-$end = new Endereco();
-$pes->setEndereco($end);
+$en = new Endereco();
+$pes->setEndereco($en);
 
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
@@ -78,7 +79,7 @@ $btExcluir = FALSE;
 
 
 
-
+        <label id="cepErro" style="color:red;"></label>
         <div class="container-fluid">
             <div class="row" style="margin-top: 30px">
                 <div class="col-md-4">
@@ -101,17 +102,14 @@ $btExcluir = FALSE;
 
                                 $endCep = $_POST['cep'];
                                 $endLogradouro = $_POST['logradouro'];
-                                $endComplemento = $_POST['complemento '];
+                                $endComplemento = $_POST['complemento'];
                                 $endBairro = $_POST['bairro'];
                                 $endCidade = $_POST['cidade'];
                                 $endUf = $_POST['uf'];
 
                                 $pesc = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
-                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login,
-                                        $senha, $perfil, $email, $cpf, $endCep,
-                                        $endLogradouro, $endComplemento, $endBairro, 
-                                        $endCidade, $endUf);
+                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $endCep, $endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                  URL='CadastroPessoa.php'\">";
@@ -132,7 +130,7 @@ $btExcluir = FALSE;
 
                                 $endCep = $_POST['cep'];
                                 $endLogradouro = $_POST['logradouro'];
-                                $endComplemento = $_POST['complemento '];
+                                $endComplemento = $_POST['complemento'];
                                 $endBairro = $_POST['bairro'];
                                 $endCidade = $_POST['cidade'];
                                 $endUf = $_POST['uf'];
@@ -194,12 +192,12 @@ $btExcluir = FALSE;
                                         if ($pes != null) {
                                             echo $pes->getIdPessoa();
                                             ?>
-                                         </label></strong>
+                                            </label></strong>
                                         <input type="hidden" name="idpessoa" 
                                                value="<?php echo $pes->getIdPessoa(); ?>"><br>
-                                        <?php
-                                    }
-                                    ?>
+                                                <?php
+                                            }
+                                            ?>
 
                                     <label> Nome Completo</label>
                                     <input class="form-control" type="text"
@@ -218,8 +216,7 @@ $btExcluir = FALSE;
                                            value="<?php echo $pes->getSenha(); ?>" name="senha">
 
                                     <label> Confirmar Senha </label>
-                                    <input class="form-control" type="password"
-                                           name="senha2">
+                                    <input class="form-control" type="password" name="senha2">
 
                                     <label> Perfil</label>
                                     <select name="perfil" class="form-control">
@@ -236,7 +233,8 @@ $btExcluir = FALSE;
                                     <input class="form-control" type="text"
                                            value="<?php echo $pes->getCpf(); ?>" name="cpf">
 
-                                    <label>CEP</label>  <label id="cepErro" style="color:red;"></label>
+                                    <label>CEP</label> 
+                                    <label id="valCep" style="color: red; font-size: 11px;"></label>
                                     <input class="form-control" type="text"  id="cep"
                                            value="<?php echo $pes->getEndereco()->getCep(); ?>" name="cep"
                                            onkeypress="mascara(this, '#####-###')" maxlength="9">
@@ -264,11 +262,11 @@ $btExcluir = FALSE;
 
                                     <input type="submit" name="cadastrarPessoa"
                                            class="btn btn-success btInput" value="Enviar"
-                                            <?php if ($btEnviar == TRUE) echo "disabled"; ?>>
+<?php if ($btEnviar == TRUE) echo "disabled"; ?>>
 
                                     <input type="submit" name="atualizarPessoa"
                                            class="btn btn-secondary btInput" value="Atualizar"
-<?php if ($btAtualizar == FALSE) echo "disabled"; ?>>
+<?php if ($btAtualizar == FALSE) echo "disabled"; ?>>   
 
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
@@ -344,15 +342,15 @@ $btExcluir = FALSE;
                             </thead>
 
                             <tbody>
-<?php
-$pescTable = new PessoaController();
-$listaPessoas = $pescTable->listarPessoas();
-$a = 0;
+                                           <?php
+                                            $pescTable = new PessoaController();
+                                            $listaPessoas = $pescTable->listarPessoas();
+                                            $a = 0;
 
-if ($listaPessoas != null) {
-    foreach ($listaPessoas as $lpes) {
-        $a++;
-        ?>
+                                            if ($listaPessoas != null) {
+                                                foreach ($listaPessoas as $lpes) {
+                                                    $a++;
+                                                    ?>
                                         <tr>
                                             <td><?php print_r($lpes->getIdPessoa()); ?></td>
                                             <td><?php print_r($lpes->getNome()); ?></td>
@@ -390,7 +388,7 @@ if ($listaPessoas != null) {
                                                 <div class="modal-body">
                                                     <form method="post" action="">
                                                         <label><strong>Deseja excluir Pessoa? 
-        <?php echo $lpes->getNome(); ?>?</strong></label>
+                                                            <?php echo $lpes->getNome(); ?>?</strong></label>
                                                         <input type="hidden" name="ide" 
                                                                value="<?php echo $lpes->getIdPessoa(); ?>">
                                                         </div>
@@ -422,12 +420,12 @@ if ($listaPessoas != null) {
     <script src="js/JQuery.min.js"></script>
 
     <script>
-                                               var myModal = document.getElementById('myModal')
-                                               var myInput = document.getElementById('myInput')
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
 
-                                               myModal.addEventListener('shown.bs.modal', function () {
-                                                   myInput.focus()
-                                               })
+         myModal.addEventListener('shown.bs.modal', function () {
+             myInput.focus()
+            })
     </script>
 
     <!-- Controle de endereço ViaCep -->
@@ -481,14 +479,16 @@ if ($listaPessoas != null) {
                             else {
                                 //CEP pesquisado não foi encontrado.
                                 limpa_formulário_cep();
-                                alert("CEP não encontrado.");
+                                //alert("CEP não encontrado.");
+                                document.getElementById("valCep").innerHTML = "* CEP não encontrado";
                             }
                         });
                     } //end if.
                     else {
                         //cep é inválido.
                         limpa_formulário_cep();
-                        alert("Formato de CEP inválido.");
+                        //alert("Formato de CEP inválido.");
+                        document.getElementById("valCep").innerHTML = "* Formato inválido";
                     }
                 } //end if.
                 else {
