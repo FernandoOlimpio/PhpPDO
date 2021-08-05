@@ -113,7 +113,6 @@ class DaoProduto {
                             $forn->setIdFornecedor($linha->idfornecedor);
                             $forn->setNomeFornecedor($linha->nomefornecedor);
                             $forn->setLogradouro($linha->logradouro);
-                            
                             $forn->setComplemento($linha->complemento);
                             $forn->setBairro($linha->bairro);
                             $forn->setCidade($linha->cidade);

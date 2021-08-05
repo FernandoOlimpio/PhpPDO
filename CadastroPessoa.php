@@ -3,10 +3,11 @@ include_once './model/Mensagem.php';
 include_once './model/Endereco.php';
 include_once './model/Pessoa.php';
 include_once './controller/PessoaController.php';
+
 $msg = new Mensagem();
 $pes = new Pessoa();
-$en = new Endereco();
-$pes->setEndereco($en);
+$endereco =new Endereco();
+$pes->setEndereco($endereco);
 
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
@@ -84,7 +85,7 @@ $btExcluir = FALSE;
             <div class="row" style="margin-top: 30px">
                 <div class="col-md-4">
                     <div class="card-header bg-light text-center border">
-                        Cadastro de Cliente
+                        Cadastro Usuário
                     </div>
                     <div class="card-body border">
 
@@ -100,16 +101,19 @@ $btExcluir = FALSE;
                                 $email = $_POST['email'];
                                 $cpf = $_POST['cpf'];
 
-                                $endCep = $_POST['cep'];
-                                $endLogradouro = $_POST['logradouro'];
-                                $endComplemento = $_POST['complemento'];
-                                $endBairro = $_POST['bairro'];
-                                $endCidade = $_POST['cidade'];
-                                $endUf = $_POST['uf'];
+                                $cep = $_POST['cep'];
+                                $logradouro = $_POST['logradouro'];
+                                $complemento = $_POST['complemento'];
+                                $bairro = $_POST['bairro'];
+                                $cidade = $_POST['cidade'];
+                                $uf = $_POST['uf'];
 
                                 $pesc = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
-                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $endCep, $endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
+                                $msg = $pesc->inserirPessoa($nome, $dtNasc, $login, 
+                                        $senha, $perfil, $email, $cpf, $cep,
+                                        $logradouro, $complemento, $bairro, 
+                                        $cidade, $uf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                  URL='CadastroPessoa.php'\">";
@@ -128,16 +132,18 @@ $btExcluir = FALSE;
                                 $email = $_POST['email'];
                                 $cpf = $_POST['cpf'];
 
-                                $endCep = $_POST['cep'];
-                                $endLogradouro = $_POST['logradouro'];
-                                $endComplemento = $_POST['complemento'];
-                                $endBairro = $_POST['bairro'];
-                                $endCidade = $_POST['cidade'];
-                                $endUf = $_POST['uf'];
+                                $cep = $_POST['cep'];
+                                $logradouro = $_POST['logradouro'];
+                                $complemento = $_POST['complemento'];
+                                $bairro = $_POST['bairro'];
+                                $cidade = $_POST['cidade'];
+                                $uf = $_POST['uf'];
 
                                 $pesc = new PessoaController();
                                 unset($_POST['atualizarPessoa']);
-                                $msg = $pesc->atualizarPessoa($id, $nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $$endCep, $$endLogradouro, $endComplemento, $endBairro, $endCidade, $endUf);
+                                $msg = $pesc->atualizarPessoa($id, $nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $cep,
+                                        $logradouro, $complemento, $bairro, 
+                                        $cidade, $uf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='CadastroPessoa.php'\">";
@@ -213,16 +219,47 @@ $btExcluir = FALSE;
 
                                     <label> Senha </label>
                                     <input class="form-control" type="password"
-                                           value="<?php echo $pes->getSenha(); ?>" name="senha">
+                                           value="<?php echo $pes->getSenha(); ?>"  id="senha" name="senha">
 
                                     <label> Confirmar Senha </label>
-                                    <input class="form-control" type="password" name="senha2">
+                                    <input onblur="validaPassword()" class="form-control" type="password" id="senha2" name="senha2" 
+                                            value="<?php echo $pes->getSenha(); ?>">
+                                    <script>
+                                       var senha = document.getElementById("senha")
+                                      , senha2 = document.getElementById("senha2");
 
+                                        function validaPassword(){
+                                      if(senha.value != senha2.value) {
+                                        senha2.setCustomValidity("Senhas diferentes!");
+                                      } else {
+                                        senha2.setCustomValidity('');
+                                      }
+                                    }
+
+                                    senha.onchange = validatePassword;
+                                    senha2.onkeyup = validatePassword;
+                                    </script>
+                                    
                                     <label> Perfil</label>
                                     <select name="perfil" class="form-control">
                                         <option> [SELECIONE]</option>
-                                        <option>Cliente</option>
-                                        <option>Funcionário</option>
+                                        <option value="<?php echo $pes->getPerfil();?>"
+                                          <?php
+                                        if($pes->getPerfil()=="Cliente"){
+                                        echo "selected = 'selected'";
+                                        }
+                                        ?>
+                                                >Cliente</option>
+                                        
+                                        
+                                        <option value="<?php echo $pes->getPerfil();?>"
+                                             <?php
+                                        if($pes->getPerfil()=="Funcionário"){
+                                        echo "selected = 'selected'";
+                                        }
+                                        ?>   
+                                                >Funcionário</option>
+                                       
                                     </select>
 
                                     <label> E-mail</label>
@@ -262,15 +299,15 @@ $btExcluir = FALSE;
 
                                     <input type="submit" name="cadastrarPessoa"
                                            class="btn btn-success btInput" value="Enviar"
-<?php if ($btEnviar == TRUE) echo "disabled"; ?>>
+                                        <?php if ($btEnviar == TRUE) echo "disabled"; ?>>
 
                                     <input type="submit" name="atualizarPessoa"
                                            class="btn btn-secondary btInput" value="Atualizar"
-<?php if ($btAtualizar == FALSE) echo "disabled"; ?>>   
+                                        <?php if ($btAtualizar == FALSE) echo "disabled"; ?>>   
 
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
-<?php if ($btExcluir == FALSE) echo "disabled"; ?>>
+                                            <?php if ($btExcluir == FALSE) echo "disabled"; ?>>
                                         Excluir
                                     </button>
 
@@ -338,7 +375,8 @@ $btExcluir = FALSE;
                                     <th>Complemento</th>
                                     <th>Bairro</th>
                                     <th>Cidade</th>
-                                    <th>UF</th></tr>
+                                    <th>UF</th>
+                                    <th>Ações</th></tr>
                             </thead>
 
                             <tbody>
@@ -346,10 +384,12 @@ $btExcluir = FALSE;
                                             $pescTable = new PessoaController();
                                             $listaPessoas = $pescTable->listarPessoas();
                                             $a = 0;
-
+                                            
+                                            
                                             if ($listaPessoas != null) {
                                                 foreach ($listaPessoas as $lpes) {
                                                     $a++;
+                                                     
                                                     ?>
                                         <tr>
                                             <td><?php print_r($lpes->getIdPessoa()); ?></td>
@@ -401,10 +441,10 @@ $btExcluir = FALSE;
                                                 </div>
                                             </div>
                                         </div>
-        <?php
-    }
-}
-?>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </tbody>
                         </table>
                     </div>

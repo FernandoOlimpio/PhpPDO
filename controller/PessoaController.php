@@ -34,7 +34,7 @@ class PessoaController {
         return $daoPessoa->inserirPessoaDao($pessoa);
     }
     
-    public function atualizarPessoa($idPessoa,$nome, $dtNasc, $login, $senha, $perfil, $email, $cpf,
+    public function atualizarPessoa($idPessoa, $nome, $dtNasc, $login, $senha, $perfil, $email, $cpf,
             $cep, $logradouro, $complemento, $bairro, $cidade, $uf) {
         
         $pessoa = new Pessoa();
@@ -65,6 +65,23 @@ class PessoaController {
     public function listarPessoas() {
         $daoPessoa = new DaoPessoa();
         return $daoPessoa->listarPessoasDAO();
+    }
+    
+    //método para excluir pessoa
+    public function excluirPessoa($id){
+        $daoPessoa = new DaoPessoa();
+        return $daoPessoa->excluirPessoaDAO($id);
+    }
+    
+    //método para retornar objeto produto com os dados do BD
+    public function pesquisarPessoaId($id){
+        $daoPessoa = new DaoPessoa();
+        return $daoPessoa->pesquisarPessoaIdDAO($id);
+    }
+    
+    //método para limpar formulário
+    public function limpar(){
+        return $pes = new Pessoa();
     }
 
 }
