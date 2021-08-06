@@ -96,7 +96,8 @@ $btExcluir = FALSE;
                             if ($nome != "") {
                                 $dtNasc = $_POST['dtNasc'];
                                 $login = $_POST['login'];
-                                $senha = $_POST['senha'];
+                                $senhaDigitada = $_POST['senha'];
+                                $senha = md5($senhaDigitada);
                                 $perfil = $_POST['perfil'];
                                 $email = $_POST['email'];
                                 $cpf = $_POST['cpf'];
@@ -142,8 +143,7 @@ $btExcluir = FALSE;
                                 $pesc = new PessoaController();
                                 unset($_POST['atualizarPessoa']);
                                 $msg = $pesc->atualizarPessoa($id, $nome, $dtNasc, $login, $senha, $perfil, $email, $cpf, $cep,
-                                        $logradouro, $complemento, $bairro, 
-                                        $cidade, $uf);
+                                        $logradouro, $complemento, $bairro, $cidade, $uf);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='CadastroPessoa.php'\">";
@@ -219,11 +219,11 @@ $btExcluir = FALSE;
 
                                     <label> Senha </label>
                                     <input class="form-control" type="password"
-                                           value="<?php echo $pes->getSenha(); ?>"  id="senha" name="senha">
+                                             id="senha" name="senha">
 
                                     <label> Confirmar Senha </label>
                                     <input onblur="validaPassword()" class="form-control" type="password" id="senha2" name="senha2" 
-                                            value="<?php echo $pes->getSenha(); ?>">
+                                            >
                                     <script>
                                        var senha = document.getElementById("senha")
                                       , senha2 = document.getElementById("senha2");
@@ -241,24 +241,26 @@ $btExcluir = FALSE;
                                     </script>
                                     
                                     <label> Perfil</label>
-                                    <select name="perfil" class="form-control">
+                                    <select  class="form-control" name="perfil">
                                         <option> [SELECIONE]</option>
-                                        <option value="<?php echo $pes->getPerfil();?>"
+                                        <option 
                                           <?php
+                                          
                                         if($pes->getPerfil()=="Cliente"){
                                         echo "selected = 'selected'";
                                         }
+                                          
                                         ?>
-                                                >Cliente</option>
+                                          >Cliente</option>
                                         
                                         
-                                        <option value="<?php echo $pes->getPerfil();?>"
+                                        <option 
                                              <?php
                                         if($pes->getPerfil()=="Funcionário"){
                                         echo "selected = 'selected'";
                                         }
                                         ?>   
-                                                >Funcionário</option>
+                                         >Funcionário</option>
                                        
                                     </select>
 

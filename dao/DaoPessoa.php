@@ -177,8 +177,8 @@ class DaoPessoa {
                 }
                  
                 
-                $st4 = $conecta->prepare("UPDATE pessoa set"
-                            . "nome = ?,"
+                $st4 = $conecta->prepare("UPDATE pessoa set "
+                            ."nome = ?,"
                             . "dtNasc = ?,"
                             . "login = ?,"
                             . "senha = ?,"
@@ -198,10 +198,10 @@ class DaoPessoa {
                     $st4->bindParam(8, $fkEnd);
                     $st4->bindParam(9, $idPessoa);
                     $st4->execute();
-                    $msg->setMsg("<p style='color: blue;'>"
-                            . "Dados atualizados com sucesso</p>");    
-                
-            } catch (Exception $ex) {
+                   // $msg->setMsg("<p style='color: blue;'>"
+                           // . "Dados atualizados com sucesso</p>");    
+                $msg->setMsg($fkEnd);
+            } catch (PDOException $ex) {
                 $msg->setMsg($ex);
             }
         } else {
@@ -222,8 +222,7 @@ class DaoPessoa {
                 $rs = $conecta->prepare("SELECT * FROM pessoa INNER JOIN endereco"
                         . " on pessoa.fkendereco = endereco.idendereco");
                 $lista= array();
-                //INNER JOIN endereco"
-                    //    . "ON pessoa.fkendereco = endereco.idendereco ORDER BY idpessoa"
+                
                 $a = 0; 
                 if($rs->execute()){
                     if($rs->rowCount() > 0){
