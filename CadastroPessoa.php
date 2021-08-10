@@ -250,8 +250,8 @@ $btExcluir = FALSE;
                                     </script>
                                     
                                     <label> Perfil</label>
-                                    <select  class="form-control" name="perfil">
-                                        <option> [SELECIONE]</option>
+                                    <select  class="form-select" name="perfil">
+                                        <option hidden="">[SELECIONE]</option>
                                         <option 
                                           <?php
                                           
@@ -279,6 +279,7 @@ $btExcluir = FALSE;
 
                                     <label> CPF</label>
                                     <input class="form-control" type="text"
+                                           onkeypress="mascara(this, '###.###.###-##')" maxlength="14"
                                            value="<?php echo $pes->getCpf(); ?>" name="cpf">
 
                                     <label>CEP</label> 
