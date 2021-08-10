@@ -83,5 +83,12 @@ class PessoaController {
     public function limpar(){
         return $pes = new Pessoa();
     }
+    
+    //método de verificação login senha
+    public function procurarSenha($login, $senha) {
+        $daoPessoa = new DaoPessoa();
+        return $daoPessoa->procurarSenhaDAO($login, $senha);
+        
+    }
 
 }

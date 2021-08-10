@@ -40,10 +40,10 @@ class DaoPessoa {
                 //$linhaEndereco = $st->execute();
                 if ($st->execute()) {
                     if($st->rowCount() >0){
-                    while ($linhaEndereco = $st->fetch(PDO::FETCH_OBJ)){
+                   $linhaEndereco = $st->fetch(PDO::FETCH_OBJ);
                     $fkEnd = $linhaEndereco->idendereco; //o endereço existindo, é jogado o idendereço na variavel fkEnd para setar em pessoa.
                     
-                    }
+                    
                     $st1 = $conecta->prepare("INSERT INTO pessoa values(null,?,?,?,?,?,?,?,?)");
                     $st1->bindParam(1, $nome);
                     $st1->bindParam(2, $dtNasc);
@@ -83,6 +83,7 @@ class DaoPessoa {
                             }
                     }
                 }
+                }
                     $st4 = $conecta->prepare("INSERT INTO pessoa values(null,?,?,?,?,?,?,?,?)");
                     $st4->bindParam(1, $nome);
                     $st4->bindParam(2, $dtNasc);
@@ -96,7 +97,7 @@ class DaoPessoa {
                     $st4->execute();
                     $msg->setMsg("<p style='color: green;'>"
                             . "Dados Cadastrados com sucesso</p>");
-                }
+                
             } catch (Exception $ex) {
                 $msg->setMsg($ex);
             }
@@ -338,6 +339,39 @@ class DaoPessoa {
         return $pessoa;
     }
     
-    
+    public function procurarSenhaDAO($login, $senha)
+    {
+        
+        $conn = new Conecta();
+        $conecta = $conn->conectadb();
+        $check = null;
+        echo $senha;
+        if ($conecta) {
+            try {
+                $st = $conecta->prepare("SELECT idpessoa FROM pessoa where " 
+                        . "login = ? and senha = ? ");
+                $st->bindParam(1, $login);
+                $st->bindParam(2, $senha);
+                if ($st->execute()) {
+
+                    if ($st->rowCount() > 0) {
+                        echo $st->rowCount();
+                        $check =  true;
+                    } else {
+                        $check =  false;
+                    }
+                }
+            } catch (Exception $ex) {
+                echo $ex;
+            }
+            return $check;
+            $conn = null;
+        } else {
+
+
+            echo "Sem conexão com o banco";
+        }
+    }
+
 
 }
