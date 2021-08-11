@@ -339,7 +339,7 @@ class DaoPessoa {
         return $pessoa;
     }
     
-    public function procurarSenhaDAO($login, $senha)
+   /* public function procurarSenhaDAO($login, $senha)
     {
         
         $conn = new Conecta();
@@ -372,6 +372,6 @@ class DaoPessoa {
             echo "Sem conexão com o banco";
         }
     }
-
+    */
 
 }

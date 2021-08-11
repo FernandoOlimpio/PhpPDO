@@ -1,4 +1,7 @@
+<?php
+session_start();
 
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,7 +45,7 @@
             <div style="background-image:url('img/amazon.jpg');height: 720px; background-size: 1200px; background-position: center; background-repeat: no-repeat; padding-top: 1px" >
                 <div class="px-4 py-5 my-5 text-center" >
                     <!--<img class="d-block mx-auto mb-4" src="img/amazon.jpg" alt="" width="72" height="57">-->
-                    <h1 class="display-5 fw-bold" style="padding-top: 150px">Welcome Amazon</h1>
+                    <h1 class="display-5 fw-bold" style="padding-top: 150px">Welcome Amazon <?php $_SESSION['nomep']?></h1>
                     <div class="col-lg-6 mx-auto">
                         <p class="lead mb-4"></p>
                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">

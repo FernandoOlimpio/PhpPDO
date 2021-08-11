@@ -1,13 +1,11 @@
-<?php
-include_once './controller/PessoaController.php';
-?>
+
 
 <!DOCTYPE html>
 
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Login</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap-min.css">
         <link rel="stylesheet" href="css/css.css">
@@ -18,32 +16,7 @@ include_once './controller/PessoaController.php';
     </head>
     <body id="paginaIndex">
         
-        <?php
-        $msg = "";
-        if (isset($_POST['enviar'])){
-                       
-            $login = trim($_POST['login']);
-            $senhaSemCriptografia = $_POST['senha'];
-            $senha = md5($senhaSemCriptografia);
-            echo "Senha:".$senha."<br>";
-            
-            $pc = new PessoaController();
-            unset($_POST['enviar']);
-           echo "Check:".$check = $pc->procurarSenha($login,$senha)."<br>";
-            if ($check == 1){
-                echo "Logado";
-                header("Location: Inicio.php");
-                
-            }else{
-                $msg = "Senha ou login inválidos"; 
-                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"5;
-                URL='index.php'\">";
-            }
-
-        }
         
-        
-        ?>
         <div class="container" >
             <div class="row espaco">
                 <div class="col-md-6 offset-md-3"
@@ -51,8 +24,16 @@ include_once './controller/PessoaController.php';
                 <div class="card-header bg-dark  border espaco text-white"
                      > Validação de login </div>                 
                   <div class="card-body border">
-                      <form method="POST" action="">
+                      <form method="POST" action="./controller/ValidaLogin.php">
                           <div class="row espaco">
+                              <?php
+                                     if ($_SESSION['msg']!= ""){
+                                         echo $_SESSION['msg'];
+                                         echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                    URL='index.php'\">";
+                                         $_SESSION['msg']= "";
+                                     }
+                              ?>
                               <div class="col-md-8 offset-md-2">
                                   <label>Usuário</label>
                                   
@@ -83,7 +64,7 @@ include_once './controller/PessoaController.php';
                                 <div class="col-md-8 offset-md-2 col-xl-12">
                                     <input class="btn btn-success" type="submit" name="enviar" value="Enviar"> 
                                     <input class="btn btn-light" type="reset" value="Limpar"><br>
-                                    <label style="color: red;"><?php echo $msg?></label> 
+                                    <label style="color: red;"><?php echo $_SESSION['msg'];?></label> 
                                 </div>    
                             </div>
                              

@@ -84,11 +84,11 @@ class PessoaController {
         return $pes = new Pessoa();
     }
     
-    //método de verificação login senha
+   /* //método de verificação login senha
     public function procurarSenha($login, $senha) {
         $daoPessoa = new DaoPessoa();
         return $daoPessoa->procurarSenhaDAO($login, $senha);
         
-    }
+    }*/
 
 }
