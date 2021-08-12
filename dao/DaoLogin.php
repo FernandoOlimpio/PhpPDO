@@ -1,14 +1,15 @@
 <?php
 
-require_once './bd/Conecta.php';
-require_once './model/Mensagem.php';
+require_once '../bd/Conecta.php';
+include_once '../model/Pessoa.php';
+
 
 class DaoLogin {
 
-    public function validarLogin($login, $senha) {
+    public function validarLoginDAO($login, $senha) {
         $conn = new Conecta();
         $pessoa = new Pessoa();
-        $msg = new Mensagem();
+       
         $conecta = $conn->conectadb();
         if ($conecta) {
             try {
@@ -26,16 +27,17 @@ class DaoLogin {
                         $pessoa->setNome($linha->nome);
                         $pessoa->setLogin($linha->login);
                         $pessoa->setPerfil($linha->perfil);
+                        
                     }
-                    return $pessoa;
+                   return $pessoa;
                 } else {
                     
                     return "<p style='color: red;'>'Usuário inexistente!'</p>";
                 }
                 }
-            } catch (Exception $ex) {
+            } catch (PDOException $ex) {
                 
-                return "".$ex;
+                return "<p style='color: red;'>'Erro no Banco de dados!'</p>".$ex;
             }
         } else {
             

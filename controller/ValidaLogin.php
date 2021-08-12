@@ -1,9 +1,8 @@
 <?php
 
-session_start();
-include_once './dao/DaoLogin.php';
+include_once '../dao/DaoLogin.php';
+include_once '../model/Pessoa.php';
 
-require_once './model/Pessoa.php';
 
 $login = $_REQUEST['login'];
 $senha = $_REQUEST['senha'];
@@ -11,25 +10,35 @@ $senha = $_REQUEST['senha'];
 $daoLogin = new DaoLogin();
 
 $resp = new Pessoa();
-$resp = $daoLogin->validarLogin($login, $senha);
+$resp = $daoLogin->validarLoginDAO($login, $senha);
 if (gettype($resp) == "object") {
     if ($resp != null) {
-        if (isset($_SESSION['loginp'])) {
+        if (isset($_SESSION['login'])) {
             $_SESSION['loginp'] = $resp->getLogin();
             $_SESSION['idp'] = $resp->getIdPessoa();
             $_SESSION['nomep'] = $resp->getNome();
             $_SESSION['perfilp'] = $resp->getPerfil();
-            $_SESSION['nr'] = rand(1,1000);
-            setcookie("nr2", $_SESSION['nr']);
-            header("Location: Inicio.php");
+           
+            
+            
+            header("Location: ../index.php");
             exit;
         }
-    } else {
-        $_SESSION['msg'] = $resp;
-        header("Location: index.php");
-        exit;
     }
-
+}else {
+            
+        $_SESSION['msg'] = $resp;
+        if (isset($_SESSION['login'])){
+            $_SESSION['loginp']=null;
+            $_SESSION['idp']=null;
+            $_SESSION['nomep']=null;
+            $_SESSION['perfilp']=null;
+        }
+        
+        header("Location: ../index.php");
+        exit;
+    
 }
+
 
     

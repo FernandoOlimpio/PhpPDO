@@ -1,4 +1,11 @@
+<?php
 
+session_start();
+
+//$_SESSION['nr'] = -1;
+//$_SESSION['confereNr'] = -2;
+//$_SESSION['msg'] = "";
+?>
 
 <!DOCTYPE html>
 
@@ -24,13 +31,14 @@
                 <div class="card-header bg-dark  border espaco text-white"
                      > Validação de login </div>                 
                   <div class="card-body border">
-                      <form method="POST" action="./controller/ValidaLogin.php">
+                      <form method="POST" action="../PhpMatutinoPDO/controller/ValidaLogin.php">
                           <div class="row espaco">
                               <?php
+                              
                                      if ($_SESSION['msg']!= ""){
                                          echo $_SESSION['msg'];
-                                         echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
-                                    URL='index.php'\">";
+                                         //echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                   // URL='DestroeSession.php'\">";
                                          $_SESSION['msg']= "";
                                      }
                               ?>
