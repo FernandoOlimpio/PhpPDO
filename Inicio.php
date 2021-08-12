@@ -23,11 +23,18 @@ session_start();
                         </a>
 
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                            <li><a href="./DestroeSession.php" class="nav-link px-2 text-white bg-danger rounded-2">SAIR</a></li>
+                            <?php
+                            if ($_SESSION['perfilp']== "Funcionário"){
+                                
+                            ?>
                             <li><a href="#" class="nav-link px-2 text-white">Administrativo</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">RH</a></li>
                             <!--<li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">About</a></li>-->
+                            <?php
+                            }
+                            ?>
                         </ul>
 
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -50,8 +57,16 @@ session_start();
                         <p class="lead mb-4"></p>
                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                             <button type="button"  class="btn btn-primary btn-lg px-4 gap-3"><a href="CadastroPessoa.php" style="color: white; text-decoration: none">Usuário</a></button>
+                             <?php
+                            if ($_SESSION['perfilp']== "Funcionário"){
+                                
+                            ?>
                             <button type="button" class="btn btn-secondary btn-lg px-4"><a href="CadastroProduto.php" style="color: white; text-decoration: none">Produto</a></button>
                             <button type="button" class="btn btn-success btn-lg px-4"><a href="CadastroFornecedor.php" style="color: white; text-decoration: none">Fornecedor</a></button>
+                            <?php
+                            }
+                            ?>
+                        
                         </div>
                     </div>
                 </div>
