@@ -83,8 +83,7 @@ class DaoPessoa {
                             }
                     }
                 }
-                }
-                    $st4 = $conecta->prepare("INSERT INTO pessoa values(null,?,?,?,?,?,?,?,?)");
+                $st4 = $conecta->prepare("INSERT INTO pessoa values(null,?,?,?,?,?,?,?,?)");
                     $st4->bindParam(1, $nome);
                     $st4->bindParam(2, $dtNasc);
                     $st4->bindParam(3, $login);
@@ -95,8 +94,13 @@ class DaoPessoa {
                     $st4->bindParam(8, $fkEnd);
 
                     $st4->execute();
-                    $msg->setMsg("<p style='color: green;'>"
-                            . "Dados Cadastrados com sucesso</p>");
+                    
+                
+                }
+                
+               $msg->setMsg("<p style='color: green;'>"
+                            . "Dados Cadastrados com sucesso</p>"); 
+                    
                 
             } catch (Exception $ex) {
                 $msg->setMsg($ex);

@@ -1,6 +1,19 @@
 <?php
 session_start();
 
+
+/*
+ cÃ³digo de seguranÃ§a aplicado nas pÃ¡ginas que se deseja assegurar.
+*/
+
+if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+    !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
+    $_SESSION['nr'] < 1 || ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
+    //UsuÃ¡rio nÃ£o logado! Redireciona para a pÃ¡gina de login 
+    header("Location: DestroeSession.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +36,10 @@ session_start();
                         </a>
 
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <li><a href="./DestroeSession.php" class="nav-link px-2 text-white bg-danger rounded-2">SAIR</a></li>
+                            
+                            <li ><a href="./DestroeSession.php" class="nav-link px-2 text-white bg-danger rounded-2" >SAIR</a></li>
+                            
+                            
                             <?php
                             if ($_SESSION['perfilp']== "Funcionário"){
                                 

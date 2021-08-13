@@ -3,6 +3,16 @@ session_start();
 include_once '../dao/DaoLogin.php';
 include_once '../model/Pessoa.php';
 
+/*
+ cÃ³digo de seguranÃ§a 
+ verifica se a requisiÃ§Ã£o da pÃ¡gina foi atravÃ©s de formulÃ¡rio e pelo mÃ©todo post,
+ e se utilizou as variÃ¡veis esperadas */
+if (!empty($_POST) AND !isset($_POST) AND (empty($_POST['login']) 
+	OR empty($_POST['senha']))) {
+	//destroi as sessÃµes e redireciona para a pÃ¡gina inicial.
+	header("Location: ../DestroeSession.php"); exit;
+}
+
 if (isset($_POST['login'])) {
     $login = $_POST['login'];
     $senhaAux = $_POST['senha'];
@@ -19,7 +29,8 @@ if (gettype($resp) == "object") {
             $_SESSION['idp'] = $resp->getIdPessoa();
             $_SESSION['nomep'] = $resp->getNome();
             $_SESSION['perfilp'] = $resp->getPerfil();
-
+            $_SESSION['nr'] = rand(1, 100);
+            $_SESSION['confereNr'] = $_SESSION['nr'];
             header("Location: ../Inicio.php");
             exit;
         }
