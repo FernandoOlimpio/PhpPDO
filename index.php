@@ -1,5 +1,5 @@
 <?php
-//teste git
+//teste git2
 session_start();
 if (empty ($_SESSION['msg'])){
     $_SESSION['msg'] = "";
