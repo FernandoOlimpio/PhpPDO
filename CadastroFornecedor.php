@@ -1,8 +1,7 @@
 
 
-<?php
-include_once './controller/FornecedorController.php';//sala
-//include_once 'c:/xampp/htdocs/PhpPDO/controller/FornecedorController.php';//casa
+<?php 
+include_once './controller/FornecedorController.php';
 include_once './model/Fornecedor.php';
 include_once './model/Mensagem.php';
 $msg = new Mensagem();
@@ -10,6 +9,16 @@ $f = new Fornecedor();
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
+
+session_start();
+
+if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+    !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
+    $_SESSION['nr'] < 1 || ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
+    //Usuário não logado! Redireciona para a página de login 
+    header("Location: DestroeSession.php");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>

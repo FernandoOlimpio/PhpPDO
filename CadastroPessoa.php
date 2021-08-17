@@ -12,6 +12,16 @@ $pes->setEndereco($endereco);
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
+
+session_start();
+
+if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+    !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
+    $_SESSION['nr'] < 1 || ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
+    //Usuário não logado! Redireciona para a página de login 
+    header("Location: DestroeSession.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,6 +60,7 @@ $btExcluir = FALSE;
             <div class="container-fluid">
                 <ul class="navbar-nav"> 
                     <li class="nav-item">
+                        <?php echo var_dump($_SESSION['nr']);?>
                     <a class="navbar-brand btn btn-primary" href="Inicio.php" >Voltar</a>
                     </li>
                 <li class="nav-item">
@@ -205,6 +216,7 @@ $btExcluir = FALSE;
                                 <div class="col-md-12 ">
                                     <strong>Código: <label style="color:red;">
                                         <?php
+                                        
                                         if ($pes != null) {
                                             echo $pes->getIdPessoa();
                                             ?>
@@ -465,7 +477,7 @@ $btExcluir = FALSE;
             </div>
         </div>     
     </div>   
-
+ 
 
     <script src="js/bootstrap.js"</script>
     <script src="js/bootstrap.min.js" </script>

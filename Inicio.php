@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-
+ 
 /*
  cÃ³digo de seguranÃ§a aplicado nas pÃ¡ginas que se deseja assegurar.
 */
 
-if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+if((!isset( $_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
     !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
     $_SESSION['nr'] < 1 || ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
     //UsuÃ¡rio nÃ£o logado! Redireciona para a pÃ¡gina de login 
@@ -41,6 +41,7 @@ if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
                             
                             
                             <?php
+                            echo var_dump($_SESSION['nr']);
                             if ($_SESSION['perfilp']== "Funcionário"){
                                 
                             ?>

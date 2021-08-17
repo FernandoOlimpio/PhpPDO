@@ -1,10 +1,13 @@
 <?php
-$_SESSION['msg'] = "";
-session_start();
 
+session_start();
+if (empty ($_SESSION['msg'])){
+    $_SESSION['msg'] = "";
+}
+//$_SESSION['msg'] = "";
 $_SESSION['nr'] = -1;
 $_SESSION['confereNr'] = -2;
-
+ 
 ?>
 
 <!DOCTYPE html>
@@ -27,23 +30,27 @@ $_SESSION['confereNr'] = -2;
    
     <!--FAZENDO UM NOVO LOGIN COM BOOTSTRAP-->
     <body class="body-index text-center">
+        
 
         <main class="form-signin">
             <form method="POST" action="./controller/ValidaLogin.php">
                 <img class="mb-4" src="img/logo.png" alt="" width="72" height="57">
                 <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
                 
+               
                 <?php
-                
-                if ($_SESSION['msg'] != ""){
-                 
-                    echo $_SESSION['msg']; 
-                  
+                    
+                if ($_SESSION['msg'] != null){
+               
+                    echo $_SESSION['msg'];
+    
                     echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                     URL='DestroeSession.php'\">";
-                     
+                    
+                     echo $_SESSION['msg'] = null;
                     
                 }
+                
                 
                 ?>
 

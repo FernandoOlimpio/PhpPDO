@@ -1,6 +1,6 @@
 <?php
 
-
+ 
 include_once './controller/ProdutoController.php';
 
 include_once './model/Produto.php';
@@ -15,6 +15,16 @@ $pr->setFornecedor($fornecedor);
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
+
+session_start();
+
+if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+    !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
+    $_SESSION['nr'] < 1 || ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
+    //Usuário não logado! Redireciona para a página de login 
+    header("Location: DestroeSession.php");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
